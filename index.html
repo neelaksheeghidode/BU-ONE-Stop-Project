@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BU OneStop</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    body { background-color: #e0f2fe; color: #1e293b; display: flex; justify-content: center; padding: 20px; }
+    .app-card { background: #dbeafe; width: 100%; max-width: 400px; border-radius: 24px; padding: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
+    .header { text-align: center; margin-bottom: 20px; }
+    .title { color: #1e3a8a; font-size: 28px; font-weight: bold; }
+    .subtitle { color: #3b82f6; font-size: 13px; font-weight: 600; margin-top: 4px; }
+    
+    .card { background: #ffffff; border-radius: 16px; padding: 16px; margin-bottom: 16px; border: 2px dashed #93c5fd; display: flex; align-items: center; justify-content: space-between; }
+    .card-info h3 { font-size: 18px; color: #0f172a; margin-bottom: 4px; }
+    .card-info p { font-size: 12px; color: #64748b; }
+    .btn-arrow { background: #3b82f6; color: white; border: none; border-radius: 50%; width: 36px; height: 36px; font-size: 18px; cursor: pointer; }
+
+    .main-btn { background: #2563eb; color: white; border: none; width: 100%; padding: 14px; border-radius: 50px; font-size: 18px; font-weight: bold; cursor: pointer; margin-top: 10px; box-shadow: 0 4px 12px rgba(37,99,235,0.3); }
+  </style>
+</head>
+<body>
+
+  <div class="app-card">
+    <div class="header">
+      <h1 class="title">BU OneStop</h1>
+      <p class="subtitle">Your all-in-one college helper • Quick • Easy • Free</p>
+    </div>
+
+    <!-- Card 1 -->
+    <div class="card">
+      <div class="card-info">
+        <h3>PYQ & E-Books</h3>
+        <p>Past Year Questions • Notes • Study PDFs</p>
+      </div>
+      <button class="btn-arrow">&rarr;</button>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="card">
+      <div class="card-info">
+        <h3>Affidavit Help - 100 ka 100 me</h3>
+        <p>Notary & Affidavit templates • Get it done in ₹100</p>
+      </div>
+      <button class="btn-arrow">&rarr;</button>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="card">
+      <div class="card-info">
+        <h3>Where to Print?</h3>
+        <p>Nearest print shops • Rates • Directions</p>
+      </div>
+      <button class="btn-arrow">&rarr;</button>
+    </div>
+
+    <button class="main-btn">Get Started &rarr;</button>
+  </div>
+
+</body>
+</html>
