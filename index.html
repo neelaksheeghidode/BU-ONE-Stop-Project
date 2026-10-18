@@ -1,62 +1,858 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BU OneStop</title>
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-    body { background-color: #e0f2fe; color: #1e293b; display: flex; justify-content: center; padding: 20px; }
-    .app-card { background: #dbeafe; width: 100%; max-width: 400px; border-radius: 24px; padding: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
-    .header { text-align: center; margin-bottom: 20px; }
-    .title { color: #1e3a8a; font-size: 28px; font-weight: bold; }
-    .subtitle { color: #3b82f6; font-size: 13px; font-weight: 600; margin-top: 4px; }
-    
-    .card { background: #ffffff; border-radius: 16px; padding: 16px; margin-bottom: 16px; border: 2px dashed #93c5fd; display: flex; align-items: center; justify-content: space-between; }
-    .card-info h3 { font-size: 18px; color: #0f172a; margin-bottom: 4px; }
-    .card-info p { font-size: 12px; color: #64748b; }
-    .btn-arrow { background: #3b82f6; color: white; border: none; border-radius: 50%; width: 36px; height: 36px; font-size: 18px; cursor: pointer; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BU OneStop - Animated Cute Anime Student Portal 🌸</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+            display: ['Fredoka', 'cursive'],
+          },
+          colors: {
+            sakura: {
+              50: '#fff5f7',
+              100: '#ffe3ec',
+              200: '#fcc2d7',
+              300: '#faa2c1',
+              400: '#f783ac',
+              500: '#f06595',
+              600: '#e64980',
+            },
+            lavender: {
+              50: '#f8f0fc',
+              100: '#f3d9fa',
+              200: '#eebefa',
+              300: '#e599f7',
+              400: '#da77f2',
+            },
+            mint: {
+              100: '#e6fcf5',
+              200: '#c3fae8',
+              300: '#96f2d7',
+              400: '#63e6be',
+            }
+          }
+        }
+      }
+    }
+  </script>
 
-    .main-btn { background: #2563eb; color: white; border: none; width: 100%; padding: 14px; border-radius: 50px; font-size: 18px; font-weight: bold; cursor: pointer; margin-top: 10px; box-shadow: 0 4px 12px rgba(37,99,235,0.3); }
+  <style>
+    /* Continuous Keyframe Animations */
+    @keyframes floatSoft {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-10px) rotate(1.5deg); }
+    }
+
+    @keyframes floatSlow {
+      0%, 100% { transform: translateY(0px) scale(1); }
+      50% { transform: translateY(-6px) scale(1.02); }
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.5; transform: scale(1); }
+      50% { opacity: 0.85; transform: scale(1.08); }
+    }
+
+    @keyframes bounceCute {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+
+    @keyframes fallPetal {
+      0% {
+        transform: translateY(-10vh) rotate(0deg) translateX(0px);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(105vh) rotate(360deg) translateX(100px);
+        opacity: 0.2;
+      }
+    }
+
+    .animate-float {
+      animation: floatSoft 4.5s ease-in-out infinite;
+    }
+
+    .animate-float-slow {
+      animation: floatSlow 6s ease-in-out infinite;
+    }
+
+    .animate-pulse-glow {
+      animation: pulseGlow 4s ease-in-out infinite;
+    }
+
+    .animate-bounce-cute {
+      animation: bounceCute 2.5s ease-in-out infinite;
+    }
+
+    /* Sakura Petals Canvas Styling */
+    .sakura-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .petal {
+      position: absolute;
+      background: linear-gradient(135deg, #fcc2d7, #f783ac);
+      border-radius: 150% 0 150% 0;
+      opacity: 0.7;
+      animation: fallPetal linear infinite;
+      pointer-events: none;
+    }
+
+    /* Glassmorphic Navbar */
+    .glass-nav {
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+
+    /* Subtle background grid */
+    .sakura-bg-pattern {
+      background-color: #fff5f7;
+      background-image: radial-gradient(#fcc2d7 0.8px, transparent 0.8px), radial-gradient(#fcc2d7 0.8px, #fff5f7 0.8px);
+      background-size: 28px 28px;
+      background-position: 0 0, 14px 14px;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #fff5f7;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #fcc2d7;
+      border-radius: 99px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #faa2c1;
+    }
   </style>
 </head>
-<body>
+<body class="sakura-bg-pattern text-slate-800 min-h-screen font-sans selection:bg-sakura-200 relative overflow-x-hidden">
 
-  <div class="app-card">
-    <div class="header">
-      <h1 class="title">BU OneStop</h1>
-      <p class="subtitle">Your all-in-one college helper • Quick • Easy • Free</p>
-    </div>
+  <!-- Falling Petals Overlay -->
+  <div class="sakura-container" id="sakura-petals"></div>
 
-    <!-- Card 1 -->
-    <div class="card">
-      <div class="card-info">
-        <h3>PYQ & E-Books</h3>
-        <p>Past Year Questions • Notes • Study PDFs</p>
+  <!-- Floating Glass Navbar -->
+  <header class="sticky top-3 z-50 px-4 max-w-6xl mx-auto">
+    <nav class="glass-nav border border-sakura-200/90 rounded-3xl shadow-sm px-6 py-3 flex items-center justify-between transition-all">
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-sakura-400 to-lavender-400 flex items-center justify-center text-white text-xl shadow-md shadow-sakura-200 animate-bounce-cute">
+          🌸
+        </div>
+        <div>
+          <span class="font-display font-bold text-xl bg-gradient-to-r from-sakura-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">
+            BU OneStop
+          </span>
+          <span class="hidden sm:inline-block text-[10px] font-bold bg-sakura-100 text-sakura-600 px-2.5 py-0.5 rounded-full ml-2 border border-sakura-200">
+            Cute Animated Edition ✨
+          </span>
+        </div>
       </div>
-      <button class="btn-arrow">&rarr;</button>
-    </div>
 
-    <!-- Card 2 -->
-    <div class="card">
-      <div class="card-info">
-        <h3>Affidavit Help - 100 ka 100 me</h3>
-        <p>Notary & Affidavit templates • Get it done in ₹100</p>
+      <div class="hidden md:flex items-center space-x-6 text-sm font-semibold text-slate-600">
+        <a href="#solutions" class="hover:text-sakura-600 transition">Solutions</a>
+        <a href="#pyq-notes" class="hover:text-sakura-600 transition">PYQs & Search</a>
+        <a href="#calculator" class="hover:text-sakura-600 transition">Attendance Calc</a>
+        <a href="#community" class="hover:text-sakura-600 transition">Study Circle</a>
       </div>
-      <button class="btn-arrow">&rarr;</button>
-    </div>
 
-    <!-- Card 3 -->
-    <div class="card">
-      <div class="card-info">
-        <h3>Where to Print?</h3>
-        <p>Nearest print shops • Rates • Directions</p>
+      <div class="flex items-center space-x-2">
+        <span class="inline-flex items-center gap-1.5 bg-mint-100 text-teal-700 text-xs font-bold px-3 py-1.5 rounded-full border border-mint-200">
+          <span class="w-2.5 h-2.5 rounded-full bg-teal-500 animate-ping"></span>
+          BU Campus Live
+        </span>
       </div>
-      <button class="btn-arrow">&rarr;</button>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="max-w-6xl mx-auto px-4 pt-8 pb-6 relative z-10">
+    <div class="bg-white/95 backdrop-blur-md rounded-3xl p-6 sm:p-10 shadow-xl border border-sakura-200 relative overflow-hidden animate-float-slow">
+      
+      <!-- Anime Background Glow Accent -->
+      <div class="absolute -top-16 -right-16 w-72 h-72 bg-sakura-200 rounded-full blur-3xl opacity-70 pointer-events-none animate-pulse-glow"></div>
+      <div class="absolute -bottom-16 -left-16 w-72 h-72 bg-lavender-200 rounded-full blur-3xl opacity-70 pointer-events-none animate-pulse-glow" style="animation-delay: 2s;"></div>
+
+      <div class="grid md:grid-cols-12 gap-8 items-center relative z-10">
+        
+        <!-- Left Hero Content -->
+        <div class="md:col-span-7 space-y-5 text-center md:text-left">
+          
+          <div class="inline-flex items-center gap-2 bg-sakura-100/90 border border-sakura-200 px-4 py-1.5 rounded-full text-xs font-extrabold text-sakura-600 shadow-sm animate-bounce-cute">
+            <span>🎓</span> Barkatullah University Student Companion
+          </div>
+
+          <h1 class="font-display text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 leading-tight">
+            Study Material, PYQs & <span class="bg-gradient-to-r from-sakura-500 via-purple-500 to-indigo-600 bg-clip-text text-transparent">Exam Support</span> 🌸
+          </h1>
+
+          <p class="text-slate-600 text-sm sm:text-base leading-relaxed max-w-xl">
+            A fast, cute, and ad-free pastel portal created specifically for BU students to easily download notes, track attendance, and prepare for semester exams smoothly!
+          </p>
+
+          <!-- Interactive Daily Quote Card -->
+          <div class="bg-gradient-to-r from-sakura-50 to-lavender-50 p-4 rounded-2xl border border-sakura-200 shadow-sm relative group cursor-pointer hover:border-sakura-300 transition" onclick="refreshQuote()">
+            <div class="flex items-center justify-between mb-1">
+              <span class="text-[11px] font-bold text-sakura-600 uppercase tracking-wider flex items-center gap-1">
+                <span>✨</span> Daily Motivation Boost
+              </span>
+              <span class="text-[10px] bg-white px-2 py-0.5 rounded-full border border-sakura-200 text-slate-500 group-hover:bg-sakura-200 group-hover:text-sakura-800 transition">Tap to change 🔄</span>
+            </div>
+            <p id="motivation-quote" class="text-xs sm:text-sm font-semibold text-slate-700 italic">
+              "Every small effort you put in today builds your bright tomorrow! Ganbatte! 🌸"
+            </p>
+          </div>
+
+          <!-- Quick Action Buttons -->
+          <div class="flex flex-wrap justify-center md:justify-start gap-3 pt-2">
+            <a href="#pyq-notes" class="bg-gradient-to-r from-sakura-500 to-sakura-600 hover:from-sakura-600 hover:to-sakura-700 text-white font-bold px-6 py-3 rounded-2xl shadow-lg shadow-sakura-200 hover:scale-[1.03] active:scale-95 transition transform text-sm flex items-center gap-2">
+              <span>📚</span> Explore Study Notes & PYQs
+            </a>
+            <a href="#calculator" class="bg-sakura-50 text-sakura-700 border border-sakura-200 font-bold px-6 py-3 rounded-2xl hover:bg-sakura-100 transition text-sm flex items-center gap-2 hover:scale-[1.02] transform">
+              <span>🧮</span> Calculate Attendance
+            </a>
+          </div>
+
+        </div>
+
+        <!-- Right Hero Interactive Animated Mascot -->
+        <div class="md:col-span-5 flex justify-center">
+          <div class="bg-gradient-to-b from-sakura-100 via-white to-lavender-100 p-5 rounded-3xl border-2 border-sakura-200 shadow-md relative w-full max-w-xs text-center animate-float">
+            
+            <!-- Speech Bubble Widget -->
+            <div id="speech-bubble" class="absolute -top-10 left-1/2 -translate-x-1/2 bg-white text-slate-800 text-xs font-bold px-4 py-2 rounded-2xl shadow-md border border-sakura-300 w-max max-w-[240px] text-center transition-all duration-300 z-20">
+              Kon'nichiwa! Click on us to talk! 💬
+            </div>
+
+            <div class="text-xs font-bold text-sakura-600 mb-3 bg-white/90 py-1.5 px-3 rounded-full border border-sakura-200 inline-block shadow-sm">
+              ✨ Campus Study Duo ✨
+            </div>
+
+            <div class="flex justify-center items-center gap-3 py-2">
+              
+              <!-- Anime Girl Card -->
+              <div onclick="mascotTalk('aanya')" class="bg-white p-3 rounded-2xl border border-sakura-200 shadow-sm flex flex-col items-center cursor-pointer hover:scale-105 active:scale-95 transition transform">
+                <svg class="w-20 h-20 animate-bounce-cute" viewBox="0 0 100 100" fill="none">
+                  <circle cx="50" cy="50" r="45" fill="#FFE3EC"/>
+                  <path d="M25 45C25 25 35 15 50 15C65 15 75 25 75 45C75 65 80 80 80 80H20C20 80 25 65 25 45Z" fill="#8B4513"/>
+                  <ellipse cx="50" cy="52" rx="22" ry="20" fill="#FFE0BD"/>
+                  <path d="M28 42C32 32 40 38 50 35C60 38 68 32 72 42C65 40 58 45 50 42C42 45 35 40 28 42Z" fill="#A0522D"/>
+                  <ellipse cx="42" cy="52" rx="3.5" ry="5" fill="#3D2314"/>
+                  <ellipse cx="58" cy="52" rx="3.5" ry="5" fill="#3D2314"/>
+                  <circle cx="43.5" cy="50.5" r="1.5" fill="white"/>
+                  <circle cx="59.5" cy="50.5" r="1.5" fill="white"/>
+                  <ellipse cx="38" cy="58" rx="4" ry="2" fill="#FF80AB" opacity="0.6"/>
+                  <ellipse cx="62" cy="58" rx="4" ry="2" fill="#FF80AB" opacity="0.6"/>
+                  <path d="M46 60Q50 64 54 60" stroke="#3D2314" stroke-width="2" stroke-linecap="round"/>
+                  <circle cx="42" cy="52" r="7" stroke="#E64980" stroke-width="2" fill="none"/>
+                  <circle cx="58" cy="52" r="7" stroke="#E64980" stroke-width="2" fill="none"/>
+                  <line x1="49" y1="52" x2="51" y2="52" stroke="#E64980" stroke-width="2"/>
+                </svg>
+                <span class="text-xs font-extrabold text-slate-700 mt-2">Aanya 🌸</span>
+                <span class="text-[10px] font-semibold text-sakura-600">MCA Final Year</span>
+              </div>
+
+              <!-- Anime Boy Card -->
+              <div onclick="mascotTalk('rohan')" class="bg-white p-3 rounded-2xl border border-sakura-200 shadow-sm flex flex-col items-center cursor-pointer hover:scale-105 active:scale-95 transition transform">
+                <svg class="w-20 h-20 animate-bounce-cute" style="animation-delay: 1.2s;" viewBox="0 0 100 100" fill="none">
+                  <circle cx="50" cy="50" r="45" fill="#E3FAF2"/>
+                  <path d="M22 45C22 25 32 15 50 15C68 15 78 25 78 45C78 60 75 75 75 75H25C25 75 22 60 22 45Z" fill="#2C3E50"/>
+                  <ellipse cx="50" cy="52" rx="21" ry="20" fill="#FFDFC4"/>
+                  <path d="M22 40C28 30 38 28 45 32C50 25 60 28 68 32C74 38 78 42 78 48C72 42 64 45 58 40C52 46 45 42 38 46C32 42 26 44 22 40Z" fill="#34495E"/>
+                  <ellipse cx="41" cy="51" rx="3.5" ry="4.5" fill="#1A252F"/>
+                  <ellipse cx="59" cy="51" rx="3.5" ry="4.5" fill="#1A252F"/>
+                  <circle cx="42.5" cy="49.5" r="1.5" fill="white"/>
+                  <circle cx="60.5" cy="49.5" r="1.5" fill="white"/>
+                  <path d="M45 60Q50 63 55 60" stroke="#1A252F" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                <span class="text-xs font-extrabold text-slate-700 mt-2">Rohan ⚡</span>
+                <span class="text-[10px] font-semibold text-teal-600">UIT B.Tech</span>
+              </div>
+
+            </div>
+
+            <p class="text-[11px] text-slate-500 font-medium mt-1 bg-white/80 p-2 rounded-xl border border-sakura-100">
+              Tap any mascot for exam tips & notes! 🎯
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Department Expand Cards -->
+  <section id="solutions" class="max-w-6xl mx-auto px-4 py-8 relative z-10">
+    <div class="text-center mb-8">
+      <h2 class="font-display text-2xl sm:text-3xl font-bold text-slate-800">
+        Solving Real Student Needs 💖
+      </h2>
+      <p class="text-xs sm:text-sm text-slate-500 mt-1">
+        Tap on any card to see details & download sample papers!
+      </p>
     </div>
 
-    <button class="main-btn">Get Started &rarr;</button>
-  </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      
+      <!-- Expandable Card 1 -->
+      <div onclick="toggleExpand('card-1')" class="bg-white p-6 rounded-3xl border border-sakura-200 shadow-sm hover:shadow-md transition cursor-pointer group hover:border-sakura-300">
+        <div class="flex justify-between items-start">
+          <div class="w-12 h-12 rounded-2xl bg-sakura-100 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition animate-bounce-cute">
+            💻
+          </div>
+          <span class="text-xs font-bold text-sakura-600 bg-sakura-50 px-2.5 py-1 rounded-full border border-sakura-200">Tap to Expand 🌸</span>
+        </div>
+        <h3 class="font-bold text-slate-800 text-lg mb-1">MCA & Computer Science</h3>
+        <p class="text-xs text-slate-500 leading-relaxed mb-3">
+          Complete course notes for C++, Data Structures, DBMS, Web Tech & Operating Systems.
+        </p>
+        <div id="card-1" class="hidden text-xs bg-sakura-50/80 p-3 rounded-2xl border border-sakura-200 space-y-2 mt-2">
+          <div class="font-bold text-sakura-700">⚡ Included Resources:</div>
+          <ul class="list-disc list-inside text-slate-600 space-y-1">
+            <li>5-Year Solved End-Sem Question Papers</li>
+            <li>Linux Lab Shell Scripting Code Examples</li>
+            <li>DBMS SQL Cheat-sheets & Viva Questions</li>
+          </ul>
+        </div>
+      </div>
 
+      <!-- Expandable Card 2 -->
+      <div onclick="toggleExpand('card-2')" class="bg-white p-6 rounded-3xl border border-sakura-200 shadow-sm hover:shadow-md transition cursor-pointer group hover:border-sakura-300">
+        <div class="flex justify-between items-start">
+          <div class="w-12 h-12 rounded-2xl bg-mint-100 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition animate-bounce-cute" style="animation-delay: 0.8s;">
+            ⚙️
+          </div>
+          <span class="text-xs font-bold text-teal-700 bg-mint-100 px-2.5 py-1 rounded-full border border-mint-200">Tap to Expand ✨</span>
+        </div>
+        <h3 class="font-bold text-slate-800 text-lg mb-1">Engineering (UIT BU)</h3>
+        <p class="text-xs text-slate-500 leading-relaxed mb-3">
+          B.Tech Civil, Mechanical, Electrical, & Computer Engineering study notes.
+        </p>
+        <div id="card-2" class="hidden text-xs bg-mint-100/60 p-3 rounded-2xl border border-mint-200 space-y-2 mt-2">
+          <div class="font-bold text-teal-800">⚡ Included Resources:</div>
+          <ul class="list-disc list-inside text-slate-600 space-y-1">
+            <li>Engineering Mathematics 1 & 2 Formula Sheets</li>
+            <li>Workshop Practice & Lab Diagrams</li>
+            <li>Mid-Sem Sample Question Banks</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Expandable Card 3 -->
+      <div onclick="toggleExpand('card-3')" class="bg-white p-6 rounded-3xl border border-sakura-200 shadow-sm hover:shadow-md transition cursor-pointer group hover:border-sakura-300">
+        <div class="flex justify-between items-start">
+          <div class="w-12 h-12 rounded-2xl bg-lavender-100 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition animate-bounce-cute" style="animation-delay: 1.6s;">
+            📈
+          </div>
+          <span class="text-xs font-bold text-purple-700 bg-lavender-100 px-2.5 py-1 rounded-full border border-lavender-200">Tap to Expand 📚</span>
+        </div>
+        <h3 class="font-bold text-slate-800 text-lg mb-1">Commerce & Management</h3>
+        <p class="text-xs text-slate-500 leading-relaxed mb-3">
+          MBA, BBA & B.Com case studies, accounting formulas & exam questions.
+        </p>
+        <div id="card-3" class="hidden text-xs bg-lavender-100/60 p-3 rounded-2xl border border-lavender-200 space-y-2 mt-2">
+          <div class="font-bold text-purple-800">⚡ Included Resources:</div>
+          <ul class="list-disc list-inside text-slate-600 space-y-1">
+            <li>Managerial Economics Summary Cards</li>
+            <li>Financial Accounting Solved Examples</li>
+            <li>Presentation Templates & Case Notes</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Real-time Interactive PYQ & Notes Finder with Live Search -->
+  <section id="pyq-notes" class="max-w-6xl mx-auto px-4 py-8 relative z-10">
+    <div class="bg-white/95 backdrop-blur-md rounded-3xl p-6 sm:p-8 border border-sakura-200 shadow-md">
+      
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+        <div>
+          <h2 class="font-display text-2xl font-bold text-slate-900 flex items-center gap-2">
+            <span>📚</span> Instant Notes & PYQs Vault
+          </h2>
+          <p class="text-xs text-slate-500 mt-1">Search any subject or select department tags</p>
+        </div>
+
+        <!-- Realtime Search Input -->
+        <div class="relative min-w-[240px]">
+          <input type="text" id="search-input" onkeyup="searchResources()" placeholder="🔍 Type subject e.g. Data, Math..." class="w-full bg-sakura-50 border border-sakura-200 rounded-2xl px-4 py-2 text-xs font-semibold focus:outline-none focus:border-sakura-400 text-slate-700 placeholder-slate-400">
+        </div>
+      </div>
+
+      <!-- Filter Tags -->
+      <div class="flex flex-wrap gap-2 mb-6" id="dept-filters">
+        <button onclick="filterDept('all', this)" class="dept-btn bg-sakura-500 text-white text-xs font-bold px-4 py-2 rounded-xl transition shadow-sm">
+          All
+        </button>
+        <button onclick="filterDept('mca', this)" class="dept-btn bg-slate-100 text-slate-600 hover:bg-sakura-100 text-xs font-bold px-4 py-2 rounded-xl transition">
+          MCA & CS
+        </button>
+        <button onclick="filterDept('tech', this)" class="dept-btn bg-slate-100 text-slate-600 hover:bg-sakura-100 text-xs font-bold px-4 py-2 rounded-xl transition">
+          B.Tech (UIT)
+        </button>
+        <button onclick="filterDept('mgmt', this)" class="dept-btn bg-slate-100 text-slate-600 hover:bg-sakura-100 text-xs font-bold px-4 py-2 rounded-xl transition">
+          MBA & BBA
+        </button>
+        <button onclick="filterDept('science', this)" class="dept-btn bg-slate-100 text-slate-600 hover:bg-sakura-100 text-xs font-bold px-4 py-2 rounded-xl transition">
+          B.Sc / M.Sc
+        </button>
+      </div>
+
+      <!-- Resources Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4" id="resource-cards">
+        
+        <!-- Resource Card 1 -->
+        <div class="resource-card mca bg-sakura-50/50 p-4 rounded-2xl border border-sakura-200 flex flex-col justify-between hover:scale-[1.02] transition transform">
+          <div>
+            <div class="flex justify-between items-start mb-2">
+              <span class="bg-sakura-200 text-sakura-700 text-[10px] font-extrabold px-2.5 py-1 rounded-md">MCA - Sem 2</span>
+              <span class="text-xs text-slate-400">PDF • 4.2 MB</span>
+            </div>
+            <h4 class="font-bold text-slate-800 text-sm mb-1 resource-title">Data Structures & C++ PYQ (2019-2024)</h4>
+            <p class="text-xs text-slate-500">Includes solved question answers for end-sem exams.</p>
+          </div>
+          <button onclick="showToast('Downloading MCA Data Structures PYQs... 🌸')" class="mt-4 w-full bg-white hover:bg-sakura-500 hover:text-white text-sakura-600 border border-sakura-300 font-bold text-xs py-2 rounded-xl transition shadow-sm">
+            Download File 📥
+          </button>
+        </div>
+
+        <!-- Resource Card 2 -->
+        <div class="resource-card tech bg-mint-100/40 p-4 rounded-2xl border border-mint-200 flex flex-col justify-between hover:scale-[1.02] transition transform">
+          <div>
+            <div class="flex justify-between items-start mb-2">
+              <span class="bg-mint-200 text-teal-800 text-[10px] font-extrabold px-2.5 py-1 rounded-md">UIT - B.Tech CSE</span>
+              <span class="text-xs text-slate-400">PDF • 8.1 MB</span>
+            </div>
+            <h4 class="font-bold text-slate-800 text-sm mb-1 resource-title">Operating Systems & Linux Lab Manual</h4>
+            <p class="text-xs text-slate-500">Complete practical code and viva preparation notes.</p>
+          </div>
+          <button onclick="showToast('Downloading B.Tech OS Notes... ⚡')" class="mt-4 w-full bg-white hover:bg-teal-600 hover:text-white text-teal-700 border border-teal-300 font-bold text-xs py-2 rounded-xl transition shadow-sm">
+            Download File 📥
+          </button>
+        </div>
+
+        <!-- Resource Card 3 -->
+        <div class="resource-card mgmt bg-lavender-100/40 p-4 rounded-2xl border border-lavender-200 flex flex-col justify-between hover:scale-[1.02] transition transform">
+          <div>
+            <div class="flex justify-between items-start mb-2">
+              <span class="bg-purple-200 text-purple-800 text-[10px] font-extrabold px-2.5 py-1 rounded-md">MBA - Sem 1</span>
+              <span class="text-xs text-slate-400">PDF • 3.5 MB</span>
+            </div>
+            <h4 class="font-bold text-slate-800 text-sm mb-1 resource-title">Managerial Economics Quick Revision</h4>
+            <p class="text-xs text-slate-500">Topper notes summarizing all 5 modules with diagrams.</p>
+          </div>
+          <button onclick="showToast('Downloading MBA Revision Notes... 📊')" class="mt-4 w-full bg-white hover:bg-purple-600 hover:text-white text-purple-700 border border-purple-300 font-bold text-xs py-2 rounded-xl transition shadow-sm">
+            Download File 📥
+          </button>
+        </div>
+
+        <!-- Resource Card 4 -->
+        <div class="resource-card science bg-amber-50 p-4 rounded-2xl border border-amber-200 flex flex-col justify-between hover:scale-[1.02] transition transform">
+          <div>
+            <div class="flex justify-between items-start mb-2">
+              <span class="bg-amber-200 text-amber-900 text-[10px] font-extrabold px-2.5 py-1 rounded-md">B.Sc - Physics</span>
+              <span class="text-xs text-slate-400">PDF • 5.0 MB</span>
+            </div>
+            <h4 class="font-bold text-slate-800 text-sm mb-1 resource-title">Quantum Mechanics Question Bank</h4>
+            <p class="text-xs text-slate-500">Important repeated questions for annual examinations.</p>
+          </div>
+          <button onclick="showToast('Downloading B.Sc Physics Question Bank... ⚛️')" class="mt-4 w-full bg-white hover:bg-amber-600 hover:text-white text-amber-800 border border-amber-300 font-bold text-xs py-2 rounded-xl transition shadow-sm">
+            Download File 📥
+          </button>
+        </div>
+
+        <!-- Resource Card 5 -->
+        <div class="resource-card mca bg-sakura-50/50 p-4 rounded-2xl border border-sakura-200 flex flex-col justify-between hover:scale-[1.02] transition transform">
+          <div>
+            <div class="flex justify-between items-start mb-2">
+              <span class="bg-sakura-200 text-sakura-700 text-[10px] font-extrabold px-2.5 py-1 rounded-md">MCA / BCA</span>
+              <span class="text-xs text-slate-400">ZIP • 12 MB</span>
+            </div>
+            <h4 class="font-bold text-slate-800 text-sm mb-1 resource-title">Web Dev & Tailwind Starter Code</h4>
+            <p class="text-xs text-slate-500">Ready-to-use HTML/CSS project templates for lab exams.</p>
+          </div>
+          <button onclick="showToast('Downloading Web Dev Starter Code... 💻')" class="mt-4 w-full bg-white hover:bg-sakura-500 hover:text-white text-sakura-600 border border-sakura-300 font-bold text-xs py-2 rounded-xl transition shadow-sm">
+            Download File 📥
+          </button>
+        </div>
+
+        <!-- Resource Card 6 -->
+        <div class="resource-card tech bg-mint-100/40 p-4 rounded-2xl border border-mint-200 flex flex-col justify-between hover:scale-[1.02] transition transform">
+          <div>
+            <div class="flex justify-between items-start mb-2">
+              <span class="bg-mint-200 text-teal-800 text-[10px] font-extrabold px-2.5 py-1 rounded-md">UIT - Civil / Mech</span>
+              <span class="text-xs text-slate-400">PDF • 6.4 MB</span>
+            </div>
+            <h4 class="font-bold text-slate-800 text-sm mb-1 resource-title">Engineering Mathematics I & II Formulas</h4>
+            <p class="text-xs text-slate-500">Formula sheet for quick formula revision before exam.</p>
+          </div>
+          <button onclick="showToast('Downloading Math Formula Sheet... 📐')" class="mt-4 w-full bg-white hover:bg-teal-600 hover:text-white text-teal-700 border border-teal-300 font-bold text-xs py-2 rounded-xl transition shadow-sm">
+            Download File 📥
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Attendance Calculator -->
+  <section id="calculator" class="max-w-6xl mx-auto px-4 py-8 relative z-10">
+    <div class="bg-gradient-to-r from-sakura-100 via-white to-lavender-100 rounded-3xl p-6 sm:p-8 border border-sakura-200 shadow-md">
+      
+      <div class="grid md:grid-cols-12 gap-8 items-center">
+        
+        <div class="md:col-span-6 space-y-4">
+          <span class="bg-white border border-sakura-200 text-sakura-600 text-xs font-bold px-3 py-1 rounded-full inline-block shadow-sm">
+            🧮 Cute & Essential Tool
+          </span>
+          <h2 class="font-display text-2xl sm:text-3xl font-bold text-slate-900">
+            Attendance Safety Shield
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+            Quickly check if you meet the 75% attendance criteria or how many upcoming classes you can safely bunk!
+          </p>
+
+          <div class="space-y-3 pt-2">
+            <div>
+              <label class="text-xs font-bold text-slate-700 block mb-1">Total Classes Conducted</label>
+              <input type="number" id="total-classes" value="40" class="w-full bg-white border border-sakura-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-sakura-400 text-slate-800 font-semibold shadow-sm" />
+            </div>
+
+            <div>
+              <label class="text-xs font-bold text-slate-700 block mb-1">Classes Attended by You</label>
+              <input type="number" id="attended-classes" value="32" class="w-full bg-white border border-sakura-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-sakura-400 text-slate-800 font-semibold shadow-sm" />
+            </div>
+
+            <button onclick="calculateAttendance()" class="w-full bg-sakura-500 hover:bg-sakura-600 text-white font-bold py-3 rounded-xl transition shadow-md shadow-sakura-200 text-sm active:scale-95">
+              Calculate Attendance Safety ✨
+            </button>
+          </div>
+        </div>
+
+        <div class="md:col-span-6">
+          <div class="bg-white/90 p-6 rounded-3xl border border-sakura-200 shadow-sm text-center animate-float-slow" id="calc-result">
+            <span class="text-4xl block mb-2 animate-bounce-cute">🎉</span>
+            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block">Your Attendance Ratio</span>
+            <div class="font-display text-4xl font-extrabold text-sakura-600 my-1" id="percentage-display">80.0%</div>
+            <p class="text-xs text-teal-700 font-bold bg-mint-100 border border-mint-200 py-2 px-4 rounded-xl inline-block mt-2 shadow-sm" id="status-message">
+              Safe Zone! You can bunk 2 more classes safely.
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Cute Study Circle Community -->
+  <section id="community" class="max-w-6xl mx-auto px-4 py-8 relative z-10">
+    <div class="text-center mb-8">
+      <h2 class="font-display text-2xl sm:text-3xl font-bold text-slate-800">
+        BU Student Helper Circle 🌸
+      </h2>
+      <p class="text-xs sm:text-sm text-slate-500 mt-1">
+        Senior mentors and classmates ready to share handwritten notes
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5">
+      
+      <!-- Student Profile 1 -->
+      <div class="bg-white/90 p-5 rounded-3xl border border-sakura-200 shadow-sm text-center flex flex-col items-center hover:scale-105 transition transform">
+        <svg class="w-20 h-20 mb-2 animate-bounccute" viewBox="0 0 100 100" fill="none">
+          <circle cx="50" cy="50" r="45" fill="#FFE3EC"/>
+          <path d="M25 45C25 25 35 15 50 15C65 15 75 25 75 45C75 65 80 80 80 80H20C20 80 25 65 25 45Z" fill="#5C2C16"/>
+          <ellipse cx="50" cy="52" rx="22" ry="20" fill="#FFE0BD"/>
+          <path d="M28 42C32 32 40 38 50 35C60 38 68 32 72 42C65 40 58 45 50 42C42 45 35 40 28 42Z" fill="#7B3F00"/>
+          <ellipse cx="42" cy="52" rx="3" ry="4.5" fill="#222"/>
+          <ellipse cx="58" cy="52" rx="3" ry="4.5" fill="#222"/>
+          <path d="M46 60Q50 63 54 60" stroke="#222" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <h4 class="font-bold text-slate-800 text-sm">Ananya Sharma</h4>
+        <span class="text-[11px] text-sakura-600 font-semibold mb-2">MCA Final Year</span>
+        <p class="text-[11px] text-slate-500 bg-sakura-50 p-2 rounded-xl w-full">
+          "Shares Docker & Linux lab shell scripts."
+        </p>
+      </div>
+
+      <!-- Student Profile 2 -->
+      <div class="bg-white/90 p-5 rounded-3xl border border-sakura-200 shadow-sm text-center flex flex-col items-center hover:scale-105 transition transform">
+        <svg class="w-20 h-20 mb-2 animate-bounce-cute" style="animation-delay: 0.6s;" viewBox="0 0 100 100" fill="none">
+          <circle cx="50" cy="50" r="45" fill="#E3FAF2"/>
+          <path d="M22 45C22 25 32 15 50 15C68 15 78 25 78 45C78 60 75 75 75 75H25C25 75 22 60 22 45Z" fill="#1E293B"/>
+          <ellipse cx="50" cy="52" rx="21" ry="20" fill="#FFDFC4"/>
+          <path d="M22 40C28 30 38 28 45 32C50 25 60 28 68 32C74 38 78 42 78 48C72 42 64 45 38 46C32 42 26 44 22 40Z" fill="#334155"/>
+          <ellipse cx="41" cy="51" rx="3" ry="4" fill="#0F172A"/>
+          <ellipse cx="59" cy="51" rx="3" ry="4" fill="#0F172A"/>
+          <path d="M45 60Q50 63 55 60" stroke="#0F172A" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <h4 class="font-bold text-slate-800 text-sm">Vikram Singh</h4>
+        <span class="text-[11px] text-teal-600 font-semibold mb-2">UIT B.Tech CSE</span>
+        <p class="text-[11px] text-slate-500 bg-mint-100/50 p-2 rounded-xl w-full">
+          "Shares Maths & C++ question banks."
+        </p>
+      </div>
+
+      <!-- Student Profile 3 -->
+      <div class="bg-white/90 p-5 rounded-3xl border border-sakura-200 shadow-sm text-center flex flex-col items-center hover:scale-105 transition transform">
+        <svg class="w-20 h-20 mb-2 animate-bounce-cute" style="animation-delay: 1.2s;" viewBox="0 0 100 100" fill="none">
+          <circle cx="50" cy="50" r="45" fill="#F3D9FA"/>
+          <path d="M25 45C25 25 35 15 50 15C65 15 75 25 75 45C75 65 80 80 80 80H20C20 80 25 65 25 45Z" fill="#4C1D95"/>
+          <ellipse cx="50" cy="52" rx="22" ry="20" fill="#FFE0BD"/>
+          <path d="M28 42C32 32 40 38 50 35C60 38 68 32 72 42C65 40 58 45 50 42C42 45 35 40 28 42Z" fill="#6D28D9"/>
+          <ellipse cx="42" cy="52" rx="3" ry="4.5" fill="#222"/>
+          <ellipse cx="58" cy="52" rx="3" ry="4.5" fill="#222"/>
+          <path d="M46 60Q50 63 54 60" stroke="#222" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <h4 class="font-bold text-slate-800 text-sm">Pooja Verma</h4>
+        <span class="text-[11px] text-purple-600 font-semibold mb-2">MBA Management</span>
+        <p class="text-[11px] text-slate-500 bg-lavender-100/50 p-2 rounded-xl w-full">
+          "Provides presentation case studies."
+        </p>
+      </div>
+
+      <!-- Student Profile 4 -->
+      <div class="bg-white/90 p-5 rounded-3xl border border-sakura-200 shadow-sm text-center flex flex-col items-center hover:scale-105 transition transform">
+        <svg class="w-20 h-20 mb-2 animate-bounce-cute" style="animation-delay: 1.8s;" viewBox="0 0 100 100" fill="none">
+          <circle cx="50" cy="50" r="45" fill="#FEF3C7"/>
+          <path d="M22 45C22 25 32 15 50 15C68 15 78 25 78 45C78 60 75 75 75 75H25C25 75 22 60 22 45Z" fill="#78350F"/>
+          <ellipse cx="50" cy="52" rx="21" ry="20" fill="#FFDFC4"/>
+          <path d="M22 40C28 30 38 28 45 32C50 25 60 28 68 32C74 38 78 42 78 48C72 42 64 45 38 46C32 42 26 44 22 40Z" fill="#92400E"/>
+          <ellipse cx="41" cy="51" rx="3" ry="4" fill="#0F172A"/>
+          <ellipse cx="59" cy="51" rx="3" ry="4" fill="#0F172A"/>
+          <path d="M45 60Q50 63 55 60" stroke="#0F172A" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <h4 class="font-bold text-slate-800 text-sm">Sameer Khan</h4>
+        <span class="text-[11px] text-amber-700 font-semibold mb-2">B.Sc Physics</span>
+        <p class="text-[11px] text-slate-500 bg-amber-50 p-2 rounded-xl w-full">
+          "Helps with practical lab manuals."
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-white/80 border-t border-sakura-200 py-8 mt-12 text-center relative z-10">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="flex justify-center items-center gap-2 mb-2">
+        <span class="text-xl animate-bounce-cute">🌸</span>
+        <span class="font-display font-bold text-slate-800 text-lg">BU OneStop Student Portal</an>
+      </div>
+      <p class="text-xs text-slate-500">
+        Made with 💖 by Barkatullah University Students • Dockerized & Cloud Ready
+      </p>
+    </div>
+  </footer>
+
+  <!-- Notification Toast Container -->
+  <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+  <!-- JavaScript Dynamic Logic -->
+  <script>
+    // Sakura Petals Generator
+    function createPetals() {
+      const container = document.getElementById('sakura-petals');
+      t petalCount = 18;
+
+      for (let i = 0; i < petalCount; i++) {
+        const petal = document.createElement('div');
+        petal.className = 'petal';
+        
+        const size = Math.random() * 12 + 8;
+        petal.style.width = `${size}px`;
+        petal.style.height = `${size}px`;
+        petal.style.left = `${Math.random() * 100}%`;
+        petal.style.animationDuration = `${Math.random() * 8 + 6}s`;
+        petal.style.animationDelay = `${Math.random() * 5}s`;
+        
+        container.appendChild(petal);
+      }
+    }
+    createPetals();
+
+    // Motivational Quotes Pool
+    const quotes = [
+      "\"Every small effort you put in today builds your bright tomorrow! Ganbatte! 🌸\"",
+      "\"Don't worry about end-sems! Take one module at a time and you'll shine! ✨\"",
+      "\"75% attendance + Previous Year Questions = Stress-Free Semester! 🎒\"",
+      "\"Believe in yourself! Even top scorers started with one page! 📖\"",
+      "\"You are doing amazing! Take short study breaks and stay hydra\""
+    ];
+
+    let quoteIndex = 0;
+    function refreshQuote() {
+      quoteIndex = (quoteIndex + 1) % quotes.length;
+      document.getElementById('motivation-quote').innerText = quotes[quoteIndex];
+      showToast('New motivation quote loaded! ✨');
+    }
+
+    // Mascot Dialogues
+    const mascotQuotes = {
+      aanya: [
+        "Aanya: 'Need MCA & CS lab codes? Check out the search bar below!' 💻",
+        "Aanya: 'Make sure to study 5-year PYQs, they repeat frequently!' 🌸",
+        "Aanya: 'All tst for your upcoming semester exams!' ✨"
+      ],
+      rohan: [
+        "Rohan: 'Check the attendance calculator so you stay above 75%!' 🧮",
+        "Rohan: 'Engineering Maths formula sheet is available in the vault!' ⚡",
+        "Rohan: 'Keep practicing code and lab assignments!' 🎒"
+      ]
+    };
+
+    let aanyaIdx = 0;
+    let rohanIdx = 0;
+
+    function mascotTalk(character) {
+      const bubble = document.getElementById('speech-bubble');
+      if (character === 'aanya') {
+        bubble.innerascotQuotes.aanya[aanyaIdx];
+        aanyaIdx = (aanyaIdx + 1) % mascotQuotes.aanya.length;
+      } else {
+        bubble.innerText = mascotQuotes.rohan[rohanIdx];
+        rohanIdx = (rohanIdx + 1) % mascotQuotes.rohan.length;
+      }
+      
+      bubble.classList.add('scale-105', 'border-sakura-400');
+      setTimeout(() => {
+        bubble.classList.remove('scale-105', 'border-sakura-400');
+      }, 300);
+    }
+
+    // Toggle Department Expandable Cards
+    function toggleExpand(id) {
+      const el = document.getElementById(id);
+      if (el.classList.contains('hidden')) {
+        el.classList.remove('hidden');
+      } else {
+        el.classList.add('hidden');
+      }
+    }
+
+    // Realtime Subject Search Logic
+    function searchResources() {
+      const query = document.getElementById('search-input').value.toLowerCase();
+      const cards = document.querySelectorAll('.resource-card');
+
+      cards.forEach(card => {
+        const title = card.querySelector('.resource-title').innerText.toLowerCase();
+        if (title.includes(query)) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    // Filter Buttons
+    function filterDept(dept, btnElement) {
+      const cards = document.querySelectorAll('.resource-card');
+      const buttons = document.querySelectorAll('.dept-btn');
+
+      buttons.forEach(btn => {
+        btn.classList.remove('bg-sakura-500', 'text-white', 'shadow-sm');
+        btn.classList.add('bg-slate-100', 'text-slate-600');
+      });
+
+      btnElement.classList.remove('bg-slate-100', 'text-slate-600');
+      btnElement.classList.add('bg-sakura-500', 'text-white', 'shadow-sm');
+
+      cards.forEach(card => {
+        if (dept === 'all' || card.classList.contains(dept)) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    // Attendance Calculation
+    function calculateAttendance() {
+      const total = parseInt(document.getElementById('total-classes').value) || 0;
+      const attended = parseInt(document.getElementById('attended-classes').value) || 0;
+      
+      const display = document.getElementById('percentage-display');
+      const message = document.getElementById('status-message');
+
+      if (total === 0 || attended > total) {
+        display.innerText = 'N/A';
+        message.innerText = 'Please enter valid total & attended classes!';
+        message.className = 'text-xs text-red-700 font-bold bg-red-100 border border-red-200 py-2 px-4 rounded-xl inline-block mt-2 shadow-sm';
+        return;
+      }
+
+      const percentage = ((attended / total) * 100).toFixed(1);
+      display.innerText = percentage + '%';
+
+      if (percentage >= 75) {
+        let safeBunks = 0;
+        let tempTotal = total;
+
+        while (((attended) / (tempTotal + 1)) * 100 >= 75) {
+          safeBunks++;
+          tempTotal++;
+        }
+
+        message.innerText = `Safe Zone! You can safely skip ${safeBunks} more classes.`;
+        message.className = 'text-xs text-teal-700 font-bold bg-mint-100 border border-mint-200 py-2 px-4 rounded-xl inline-block mt-2 shadow-sm';
+      } else {
+        let requiredClasses = 0;
+        let tempAttended = attended;
+        let tempTotal = total;
+
+        while ((tempAttended / tempTotal) * 100 < 75) {
+          requiredClasses++;
+          tempAttended++;
+          tempTotal++;
+        }
+
+        message.innerText = `Warning! You need to attend the next ${requiredClasses} classes continuously to reach 75%.`;
+        message.className = 'text-xs text-sakura-700 font-bold bg-sakura-100 border border-sakura-200 py-2 px-4 rounded-xl inline-block mt-2 shadow-sm';
+      }
+    }
+
+    // Toast Notifications
+    function showToast(text) {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      toast.className = 'bg-slate-900/90 backdrop-blur-md text-white text-xs font-semibold px-4 py-3 rounded-2xl shadow-xl flex items-center gap-2 transform transition-all duration-300 translate-y-5 opacity-0 pointer-events-auto';
+      toast.innerHTML = `<span>🌸</span> ${text}`;
+      
+      container.appendChild(toast);
+
+      setTimeout(() => {
+        toast.classList.remove('translate-y-5', 'opacity-0');
+      }, 50);
+
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'translate-y-5');
+        setTimeout(() => toast.remove(), 300);
+      }, 3000);
+    }
+  </script>
 </body>
 </html>
