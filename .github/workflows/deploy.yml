@@ -23,3 +23,13 @@ jobs:
         docker run -d -p 8080:80 --name test-app bu-onestop:latest
         sleep 3
         curl http://localhost:8080
+
+  deploy:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+
+    steps:
+    - name: Trigger Render Deployment
+      run: |
+        curl -X POST "${{ secrets.RENDER_DEPLOY_HOOK_URL }}"
